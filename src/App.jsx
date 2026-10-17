@@ -904,10 +904,13 @@ export default function App() {
                     } else if (paymentMethod === 'paystack') {
                       triggerPaystackCheckout();
                     } else {
+                      // WhatsApp Waiter Service Alert Integration
+                      let waiterMessage = `🔔 *WAITER SERVICE ALERT*\n\n*Location:* ${tableNumber}\n*Status:* Customer is requesting assistance at the table. Please attend to them.`;
+                      window.open(`https://wa.me/${storeConfig.whatsappNumber}?text=${encodeURIComponent(waiterMessage)}`, '_blank');
+
                       setOrderPlaced(true);
                       setTimeout(() => {
                         setOrderPlaced(false);
-                        setCart([]);
                         setIsCartOpen(false);
                       }, 2000);
                     }
@@ -919,7 +922,7 @@ export default function App() {
                   }`}
                 >
                   {orderPlaced 
-                    ? 'Order Confirmed! ✓' 
+                    ? 'Request Sent to Floor! ✓' 
                     : paymentMethod === 'whatsapp'
                       ? `Send Order to WhatsApp`
                       : paymentMethod === 'paystack' 
